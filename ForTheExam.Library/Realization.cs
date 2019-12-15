@@ -10,7 +10,7 @@ namespace ForTheExam.Library
         public List<Information> GetInformation(string groupId)
         {
             List<Information> InfoSerialized = new List<Information>();
-            Serialization serialization = new Serialization();
+            Storage serialization = new Storage();
             InfoSerialized = serialization.Load();
 
             var result = InfoSerialized
@@ -20,28 +20,16 @@ namespace ForTheExam.Library
             return result;
         }
 
-        public IEnumerable<double> GetAverageRatingForSubject(string lesson)
+        public double GetAverageRatingForSubject(string lesson)
         {
             List<Information> InfoSerialezid = new List<Information>();
-            Serialization serialization = new Serialization();
+            Storage serialization = new Storage();
             InfoSerialezid = serialization.Load();
 
-            var infoCredit = InfoSerialezid
-                .Where(info => info.FormOfAccomodation == "очная")
-                .Where(x => x.Credits.Lesson == lesson)
-                .Average(y => y.Credits.Mark);
-
-            List<double> result = new List<double>
-            {
-                infoCredit
-            };
-
-            infoCredit = InfoSerialezid
-                .Where(info => info.FormOfAccomodation == "заочная")
-                .Where(x => x.Credits.Lesson == lesson)
-                .Average(y => y.Credits.Mark);
-
-            result.Add(infoCredit);
+            var result = InfoSerialezid
+                .Where(info => info.Lessons.Name == lesson)
+                .SelectMany(l => l.Lessons.Mark)
+                .Average();
 
             return result;
         }
@@ -49,51 +37,85 @@ namespace ForTheExam.Library
         public IEnumerable<Information> SortByAverageRatingForGroup(string groupId)
         {
             List<Information> InfoSerialized = new List<Information>();
-            Serialization serialization = new Serialization();
+            Storage serialization = new Storage();
             InfoSerialized = serialization.Load();
 
             var result = InfoSerialized
                 .Where(info => info.GroupID == groupId)
-                .OrderBy(inform => InfoSerialized.Average(n => n.Credits.Mark));
-
+                .OrderBy(m => InfoSerialized
+                .SelectMany(l => l.Lessons.Mark)
+                .Average());
+                
             return result;
         }
 
-        public IEnumerable<Information> TheRatioBetweenAverageMarkAndGroup(string lesson, string groupId)
+        public IEnumerable<int> TheRatioBetweenAverageMarkAndGroup(string lesson)
         {
             List<Information> InfoSerialized = new List<Information>();
-            Serialization serialization = new Serialization();
+            Storage serialization = new Storage();
             InfoSerialized = serialization.Load();
 
             var result = InfoSerialized
-                .Where(info => info.GroupID == groupId)
-                .Where(y => y.Credits.Lesson == lesson)
-                .Where(n => n.Credits.Mark == InfoSerialized.Average(x => x.Credits.Mark))
-                .ToList() as List<Information>;
+                .Where(info => info.Lessons.Name == lesson)
+                .SelectMany(l => l.Lessons.Mark)
+                .OrderBy(m => InfoSerialized
+                .SelectMany(l => l.Lessons.Mark)
+                .Average());       
 
             return result;
         }
 
-        //public IEnumerable<double> ShareOfAverageMarkForLesson(string lesson)
-        //{
-        //    List<Information> InfoSerialized = new List<Information>();
-        //    Serialization serialization = new Serialization();
-        //    InfoSerialized = serialization.Load();
+        public IEnumerable<double> ShareOfAverageMarkForLesson(string lesson)
+        {
+            List<Information> InfoSerialized = new List<Information>();
+            Storage serialization = new Storage();
+            InfoSerialized = serialization.Load();
 
-        //    double[] vs = new double[4];
+            List<double> result = new List<double>();
 
-        //    for (int mark = 1; mark <=5; mark++)
-        //    {
-        //        var res = InfoSerialized
-        //            .Where(info => info.Credits.Lesson == lesson)
-        //            .Where(y => y.Credits.Mark == mark)
-        //            .Count();
+            int cou = InfoSerialized
+                .Where(info => info.Lessons.Name == lesson)
+                .SelectMany(l => l.Lessons.Mark)
+                .Count();
 
-        //        vs[mark - 1] = res;
-        //    }
+            for (int mark = 1; mark <= 5; mark++)
+            {
+                var res = InfoSerialized
+                    .Where(info => info.Lessons.Name == lesson)
+                    .SelectMany(l => l.Lessons.Mark.Where(k => k == mark)).Count();
 
-        //    double average = 0;
-        //}
+                result.Add(res / cou);
+            }
 
+            return result;
+        }
+
+        public IEnumerable<Information> ShareOfdAverageMarkForSubject(string groupId)
+        {
+            List<Information> InfoSerialized = new List<Information>();
+            Storage serialization = new Storage();
+            InfoSerialized = serialization.Load();
+
+            var result = InfoSerialized
+                .Where(info => info.GroupID == groupId)
+                .OrderBy(m => InfoSerialized
+                .SelectMany(y => y.Lessons.Mark)
+                .Average());
+
+            return result;
+        }
+
+        public IEnumerable<int> ShareOfAmountOfStudents(string groupId)
+        {
+            List<Information> InfoSerialized = new List<Information>();
+            Storage serialization = new Storage();
+            InfoSerialized = serialization.Load();
+
+            var result = InfoSerialized
+                .Where(info => info.GroupID == groupId)
+                .Select(m => m.AmountOfStudents);
+
+            return result;
+        }
     }
 }

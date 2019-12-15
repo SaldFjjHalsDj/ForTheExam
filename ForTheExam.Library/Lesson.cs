@@ -4,9 +4,9 @@ using System.Text;
 
 namespace ForTheExam.Library
 {
-    public class CreditsForms
+    public class Lesson
     {
-        public string Lesson { get; set; }
-        public int Mark { get; set; }
+        public string Name { get; set; }
+        public List<int> Mark { get; set; }
     }
 }

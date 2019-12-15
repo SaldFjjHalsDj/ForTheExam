@@ -6,11 +6,9 @@ namespace ForTheExam.Library
 {
     [Serializable]
     public class Information
-    {
-        public string Surname { get; set; }
-        public string Initials { get; set;}
+    { 
         public string GroupID { get; set; }
-        public string FormOfAccomodation { get; set; }
-        public CreditsForms Credits { get; set; }
+        public int AmountOfStudents { get; set; }
+        public Lesson Lessons { get; set; }
     }
 }
