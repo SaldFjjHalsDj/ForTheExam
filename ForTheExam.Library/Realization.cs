@@ -34,17 +34,31 @@ namespace ForTheExam.Library
             return result;
         }
 
-        public IEnumerable<Information> SortByAverageRatingForGroup(string groupId)
+        public double GetAverageRatingForGroup(string groupId)
+        {
+            List<Information> InfoSerialezid = new List<Information>();
+            Storage serialization = new Storage();
+            InfoSerialezid = serialization.Load();
+
+            var result = InfoSerialezid
+                .Where(info => info.GroupID == groupId)
+                .SelectMany(l => l.Lessons.Mark)
+                .Average();
+
+            return result;
+        }
+
+        public List<Information> SortByAverageRatingForGroup()
         {
             List<Information> InfoSerialized = new List<Information>();
             Storage serialization = new Storage();
             InfoSerialized = serialization.Load();
 
             var result = InfoSerialized
-                .Where(info => info.GroupID == groupId)
                 .OrderBy(m => InfoSerialized
                 .SelectMany(l => l.Lessons.Mark)
-                .Average());
+                .Average())
+                .ToList() as List<Information>;
                 
             return result;
         }

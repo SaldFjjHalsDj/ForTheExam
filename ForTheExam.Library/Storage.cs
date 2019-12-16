@@ -25,7 +25,7 @@ namespace ForTheExam.Library
             JsonSerializer serializer = new JsonSerializer();
             List<Information> result = new List<Information>();
 
-            using (StreamReader sr = new StreamReader(@"data.xml"))
+            using (StreamReader sr = new StreamReader(@"data.json"))
             using (JsonReader reader = new JsonTextReader(sr))
             {
                 result = serializer.Deserialize<List<Information>>(reader);

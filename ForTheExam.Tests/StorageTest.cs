@@ -15,7 +15,7 @@ namespace ForTheExam.Tests
         [TestMethod]
         public void Storage_Test()
         {
-            var data = new List<Information>();
+            var data = new List<Information>()
             {
                 new Information
                 {
@@ -30,7 +30,7 @@ namespace ForTheExam.Tests
                             1, 2, 5, 5, 5,
                         },
                     },
-                };
+                },
 
                 new Information
                 {
@@ -44,8 +44,16 @@ namespace ForTheExam.Tests
                             4, 3, 2, 5, 5, 5, 2, 3, 2,
                         },
                     },
-                };
+                },
             };
+
+            storage.Save(data, "datatest");
+            var result = storage.Load("datatest");
+
+            string expected = JsonConvert.SerializeObject(data);
+            string actually = JsonConvert.SerializeObject(result);
+
+            Assert.AreEqual(actually, expected);
         }
     }
 }
