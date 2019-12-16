@@ -65,7 +65,7 @@ namespace ForTheExam.Library
             //    .Average())
             //    .ToList() as List<Information>;
             var result = infoSerialized.GroupBy(i => i.GroupID)
-                .OrderBy(g => g.SelectMany(i=> i.Lessons.Mark))
+                .OrderBy(g => g.SelectMany(i=> i.Lessons.Mark).Average(m=>m))
                 .SelectMany(g=> g)
                 .ToList();
             return result;
