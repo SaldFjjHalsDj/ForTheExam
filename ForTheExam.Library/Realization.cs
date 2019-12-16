@@ -50,15 +50,13 @@ namespace ForTheExam.Library
 
         public List<Information> SortByAverageRatingForGroup()
         {
-            List<Information> InfoSerialized = new List<Information>();
             Storage serialization = new Storage();
-            InfoSerialized = serialization.Load();
+            List<Information> InfoSerialized = serialization.Load();
 
-            var result = InfoSerialized
-                .Select(info => new { info.GroupID, info.AmountOfStudents, info.Lessons.Name, info.Lessons.Mark, Average = InfoSerialized.SelectMany(l => l.Lessons.Mark).Average() } )
-                .OrderBy(m => InfoSerialized
-                .ToList() as List<Information>;
-                
+            var result = InfoSerialized.GroupBy(i => i.GroupID)
+                .OrderBy(g => g.SelectMany(i => i.Lessons.Mark).Average())
+                .SelectMany(g => g)
+                .ToList();
             return result;
         }
 
