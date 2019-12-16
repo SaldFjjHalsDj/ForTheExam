@@ -55,9 +55,8 @@ namespace ForTheExam.Library
             InfoSerialized = serialization.Load();
 
             var result = InfoSerialized
+                .Select(info => new { info.GroupID, info.AmountOfStudents, info.Lessons.Name, info.Lessons.Mark, Average = InfoSerialized.SelectMany(l => l.Lessons.Mark).Average() } )
                 .OrderBy(m => InfoSerialized
-                .SelectMany(l => l.Lessons.Mark)
-                .Average())
                 .ToList() as List<Information>;
                 
             return result;

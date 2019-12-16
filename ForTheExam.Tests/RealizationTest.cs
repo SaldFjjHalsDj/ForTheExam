@@ -162,7 +162,7 @@ namespace ForTheExam.Tests
 
             string expected = JsonConvert.SerializeObject(result);
             string actually = JsonConvert.SerializeObject(sort);
-            Assert.AreEqual(result, sort);
+            Assert.AreEqual(expected, actually);
         }
     }
 }
