@@ -98,20 +98,6 @@ namespace ForTheExam.Tests
 
                 new Information
                 {
-                    GroupID = "In18o-1",
-                    AmountOfStudents = 10,
-                    Lessons = new Lesson
-                    {
-                        Name = "Math",
-                        Mark = new List<int>
-                        {
-                            3, 4, 2, 2, 5
-                        }
-                    },
-                },
-
-                new Information
-                {
                     GroupID = "Ivt18o-1",
                     AmountOfStudents = 19,
                     Lessons = new Lesson
@@ -152,6 +138,21 @@ namespace ForTheExam.Tests
                         }
                     },
                 },
+
+                new Information
+                {
+                    GroupID = "In18o-1",
+                    AmountOfStudents = 10,
+                    Lessons = new Lesson
+                    {
+                        Name = "Math",
+                        Mark = new List<int>
+                        {
+                            3, 4, 2, 2, 5
+                        }
+                    },
+                },
+
             };
 
             // Action
