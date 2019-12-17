@@ -22,7 +22,6 @@ namespace ForTheExam
             Storage storage = new Storage();
             List<Information> info = new List<Information>();
 
-
             var data = new List<Information>()
             {
                 new Information
@@ -82,7 +81,7 @@ namespace ForTheExam
                     },
                 },
             };
-        storage.Save(data);
+            storage.Save(data);
         }
     }
 }

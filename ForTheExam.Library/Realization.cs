@@ -51,27 +51,16 @@ namespace ForTheExam.Library
         public List<Information> SortByAverageRatingForGroup()
         {
             Storage serialization = new Storage();
-            List<Information> infoSerialized = serialization.Load();
+            List<Information> InfoSerialized = serialization.Load();
 
-            //var result = InfoSerialized
-            //    .OrderBy(m => InfoSerialized.SelectMany(l => l.Lessons.Mark)
-            //                                .Average()
-            //     )
-            //    .ToList() as List<Information>;
-
-            //var result = InfoSerialized
-            //    .OrderBy(m => InfoSerialized
-            //    .SelectMany(l => l.Lessons.Mark)
-            //    .Average())
-            //    .ToList() as List<Information>;
-            var result = infoSerialized.GroupBy(i => i.GroupID)
-                .OrderBy(g => g.SelectMany(i=> i.Lessons.Mark).Average(m=>m))
-                .SelectMany(g=> g)
+            var result = InfoSerialized.GroupBy(i => i.GroupID)
+                .OrderBy(g => g.SelectMany(i => i.Lessons.Mark).Average())
+                .SelectMany(g => g)
                 .ToList();
             return result;
         }
 
-        public IEnumerable<int> TheRatioBetweenAverageMarkAndGroup(string lesson)
+        public IEnumerable<Information> TheRatioBetweenAverageMarkAndGroup(string lesson)
         {
             List<Information> InfoSerialized = new List<Information>();
             Storage serialization = new Storage();
@@ -79,15 +68,14 @@ namespace ForTheExam.Library
 
             var result = InfoSerialized
                 .Where(info => info.Lessons.Name == lesson)
-                .SelectMany(l => l.Lessons.Mark)
                 .OrderBy(m => InfoSerialized
                 .SelectMany(l => l.Lessons.Mark)
-                .Average());       
+                .Average());
 
             return result;
         }
 
-        public IEnumerable<double> ShareOfAverageMarkForLesson(string lesson)
+        public IEnumerable<double> ShareOfAverageMarkForLesson(string lesson, string groupId)
         {
             List<Information> InfoSerialized = new List<Information>();
             Storage serialization = new Storage();
@@ -96,6 +84,7 @@ namespace ForTheExam.Library
             List<double> result = new List<double>();
 
             int cou = InfoSerialized
+                .Where(i => i.GroupID == groupId)
                 .Where(info => info.Lessons.Name == lesson)
                 .SelectMany(l => l.Lessons.Mark)
                 .Count();
@@ -103,16 +92,17 @@ namespace ForTheExam.Library
             for (int mark = 1; mark <= 5; mark++)
             {
                 var res = InfoSerialized
+                    .Where(i => i.GroupID == groupId)
                     .Where(info => info.Lessons.Name == lesson)
                     .SelectMany(l => l.Lessons.Mark.Where(k => k == mark)).Count();
 
-                result.Add(res / cou);
+                result.Add((res * 1.0 / cou) * 100);
             }
 
             return result;
         }
 
-        public IEnumerable<Information> ShareOfdAverageMarkForSubject(string groupId)
+        public IEnumerable<double> ShareOfdAverageMarkForSubject(string groupId)
         {
             List<Information> InfoSerialized = new List<Information>();
             Storage serialization = new Storage();
@@ -120,9 +110,7 @@ namespace ForTheExam.Library
 
             var result = InfoSerialized
                 .Where(info => info.GroupID == groupId)
-                .OrderBy(m => InfoSerialized
-                .SelectMany(y => y.Lessons.Mark)
-                .Average());
+                .Select(y => y.Lessons.Mark.Average());
 
             return result;
         }
