@@ -36,8 +36,13 @@ namespace ForTheExam
 
             DataView.DataSource = saved;
 
-            DataAV.DataSource = saved;
-            
+            DataAV.DataSource = saved
+                .Select(info => info.Lessons)
+                .ToList();
+
+            dataGridView1.DataSource = saved
+                .Select(info => info.Lessons.Mark)
+                .ToList();
 
             DataView.AutoResizeColumns();
 
@@ -61,22 +66,18 @@ namespace ForTheExam
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.PieInfo = new LiveCharts.WinForms.PieChart();
-            this.lessonBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.lessonBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.DataAV = new System.Windows.Forms.DataGridView();
-            this.markBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.lessonBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.lessonBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.PiePanel.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.informationBindingSource)).BeginInit();
             this.tabPage3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lessonBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lessonBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataAV)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lessonBindingSource2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lessonBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // PiePanel
@@ -92,6 +93,7 @@ namespace ForTheExam
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Controls.Add(this.DataAV);
             this.tabPage1.Controls.Add(this.comboBoxForGroupId);
             this.tabPage1.Controls.Add(this.DataView);
@@ -172,10 +174,6 @@ namespace ForTheExam
             this.PieInfo.TabIndex = 0;
             this.PieInfo.Text = "pieChart1";
             // 
-            // lessonBindingSource
-            // 
-            this.lessonBindingSource.DataSource = typeof(ForTheExam.Library.Lesson);
-            // 
             // DataAV
             // 
             this.DataAV.AutoGenerateColumns = false;
@@ -183,27 +181,33 @@ namespace ForTheExam
             this.DataAV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataAV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn});
-            this.DataAV.DataSource = this.lessonBindingSource2;
+            this.DataAV.DataSource = this.lessonBindingSource;
             this.DataAV.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.DataAV.Location = new System.Drawing.Point(261, 6);
             this.DataAV.Name = "DataAV";
-            this.DataAV.Size = new System.Drawing.Size(241, 407);
+            this.DataAV.Size = new System.Drawing.Size(145, 407);
             this.DataAV.TabIndex = 2;
             // 
-            // markBindingSource
+            // lessonBindingSource
             // 
-            this.markBindingSource.DataMember = "Mark";
-            this.markBindingSource.DataSource = this.lessonBindingSource;
-            // 
-            // lessonBindingSource2
-            // 
-            this.lessonBindingSource2.DataSource = typeof(ForTheExam.Library.Lesson);
+            this.lessonBindingSource.DataSource = typeof(ForTheExam.Library.Lesson);
             // 
             // nameDataGridViewTextBoxColumn
             // 
             this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
             this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.GridColor = System.Drawing.SystemColors.ButtonFace;
+            this.dataGridView1.Location = new System.Drawing.Point(412, 6);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(145, 407);
+            this.dataGridView1.TabIndex = 3;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Form1
             // 
@@ -217,11 +221,9 @@ namespace ForTheExam
             ((System.ComponentModel.ISupportInitialize)(this.DataView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.informationBindingSource)).EndInit();
             this.tabPage3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.lessonBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lessonBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DataAV)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.markBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lessonBindingSource2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lessonBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -232,6 +234,11 @@ namespace ForTheExam
         }
 
         private void DataView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
