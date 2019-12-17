@@ -70,7 +70,7 @@ namespace ForTheExam.Library
                 .Where(info => info.Lessons.Name == lesson)
                 .OrderBy(m => InfoSerialized
                 .SelectMany(l => l.Lessons.Mark)
-                .Average());       
+                .Average());
 
             return result;
         }
@@ -84,7 +84,7 @@ namespace ForTheExam.Library
             List<double> result = new List<double>();
 
             int cou = InfoSerialized
-                .Where( i => i.GroupID == groupId)
+                .Where(i => i.GroupID == groupId)
                 .Where(info => info.Lessons.Name == lesson)
                 .SelectMany(l => l.Lessons.Mark)
                 .Count();
@@ -96,7 +96,7 @@ namespace ForTheExam.Library
                     .Where(info => info.Lessons.Name == lesson)
                     .SelectMany(l => l.Lessons.Mark.Where(k => k == mark)).Count();
 
-                result.Add((res*1.0 / cou)*100);
+                result.Add((res * 1.0 / cou) * 100);
             }
 
             return result;

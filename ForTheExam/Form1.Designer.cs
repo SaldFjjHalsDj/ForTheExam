@@ -20,11 +20,23 @@
             base.Dispose(disposing);
         }
 
-        private System.Windows.Forms.TabControl ControlPanel;
+        private System.Windows.Forms.TabControl PiePanel;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView DataView;
         private System.Windows.Forms.ComboBox comboBoxForGroupId;
+        private System.Windows.Forms.TabPage tabPage3;
+        private LiveCharts.WinForms.PieChart PieInfo;
+        private System.Windows.Forms.BindingSource lessonBindingSource;
+        private System.Windows.Forms.BindingSource informationBindingSource;
+        private System.Windows.Forms.BindingSource lessonBindingSource1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn groupIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn amountOfStudentsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lessonsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridView DataAV;
+        private System.Windows.Forms.BindingSource markBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource lessonBindingSource2;
     }
 }
 
