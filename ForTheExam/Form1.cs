@@ -39,7 +39,10 @@ namespace ForTheExam
             DataAV.DataSource = saved
                 .Select(info => info.Lessons)
                 .ToList();
-            
+
+            dataGridView1.DataSource = saved
+                .Select(info => info.Lessons.Mark)
+                .ToList();
 
             DataView.AutoResizeColumns();
 
@@ -66,6 +69,7 @@ namespace ForTheExam
             this.DataAV = new System.Windows.Forms.DataGridView();
             this.lessonBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.PiePanel.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataView)).BeginInit();
@@ -73,6 +77,7 @@ namespace ForTheExam
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataAV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lessonBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // PiePanel
@@ -88,6 +93,7 @@ namespace ForTheExam
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Controls.Add(this.DataAV);
             this.tabPage1.Controls.Add(this.comboBoxForGroupId);
             this.tabPage1.Controls.Add(this.DataView);
@@ -179,7 +185,7 @@ namespace ForTheExam
             this.DataAV.GridColor = System.Drawing.SystemColors.ButtonFace;
             this.DataAV.Location = new System.Drawing.Point(261, 6);
             this.DataAV.Name = "DataAV";
-            this.DataAV.Size = new System.Drawing.Size(241, 407);
+            this.DataAV.Size = new System.Drawing.Size(145, 407);
             this.DataAV.TabIndex = 2;
             // 
             // lessonBindingSource
@@ -191,6 +197,17 @@ namespace ForTheExam
             this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
             this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
             this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.GridColor = System.Drawing.SystemColors.ButtonFace;
+            this.dataGridView1.Location = new System.Drawing.Point(412, 6);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(145, 407);
+            this.dataGridView1.TabIndex = 3;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Form1
             // 
@@ -206,6 +223,7 @@ namespace ForTheExam
             this.tabPage3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataAV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lessonBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -216,6 +234,11 @@ namespace ForTheExam
         }
 
         private void DataView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

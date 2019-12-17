@@ -34,6 +34,7 @@
         private System.Windows.Forms.DataGridView DataAV;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource lessonBindingSource;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 
