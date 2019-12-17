@@ -20,6 +20,11 @@
             base.Dispose(disposing);
         }
 
+        private System.Windows.Forms.TabControl ControlPanel;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.DataGridView DataView;
+        private System.Windows.Forms.ComboBox comboBoxForGroupId;
     }
 }
 
